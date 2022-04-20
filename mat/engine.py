@@ -8,7 +8,6 @@ ERRORS = {
     3: "multiplication not applicable"
 }
 
-##
 # Base class
 
 class Matrix:
@@ -53,7 +52,21 @@ class Matrix:
             r.append("\n")
         return "".join(r)
 
-#
+    def get_transpose(self):
+        transposed = []
+        for i in range(0, self.columns):
+            row = []
+            for j in range(0, self.rows):
+                row.append(self.data[j][i])
+            transposed.append(row)
+        return Matrix(transposed)
+
+    def get_determinant(self):
+        pass
+
+    def get_inverse(self):
+        pass
+
 # Helpers
 
 def _sum(a, b):
