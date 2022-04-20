@@ -8,31 +8,6 @@ ERRORS = {
     3: "multiplication not applicable"
 }
 
-#
-# Helpers
-
-def _sum(a, b):
-    row = [0] * len(a)
-    for i in range(0, len(a)):
-        row[i] = a[i] + b[i]
-
-    return row
-
-def _by_scalar(a, b):
-    row = [0] * len(a)
-    for i in range(0, len(a)):
-        row[i] = a[i] * b
-
-    return row
-
-def _by_columns(a, b):
-    row = [0] * b.columns
-    for i in range(0, b.columns):
-        for j in range(0, a.columns):
-            row[i] += a[j] * b.data[j][i]
-
-    return row
-
 ##
 # Base class
 
@@ -83,3 +58,28 @@ class Matrix:
             r.append("\n")
 
         return "".join(r)
+
+#
+# Helpers
+
+def _sum(a, b):
+    row = [0] * len(a)
+    for i in range(0, len(a)):
+        row[i] = a[i] + b[i]
+
+    return row
+
+def _by_scalar(a, b):
+    row = [0] * len(a)
+    for i in range(0, len(a)):
+        row[i] = a[i] * b
+
+    return row
+
+def _by_columns(a, b: Matrix):
+    row = [0] * b.columns
+    for i in range(0, b.columns):
+        for j in range(0, len(a)):
+            row[i] += a[j] * b.data[j][i]
+
+    return row
