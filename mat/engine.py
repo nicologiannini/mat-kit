@@ -8,45 +8,59 @@ ERRORS = {
     3: "multiplication not applicable"
 }
 
+#
+# Helpers
+
+def _sum(a, b):
+    row = [0] * len(a)
+    for i in range(0, len(a)):
+        row[i] = a[i] + b[i]
+
+    return row
+
+def _by_scalar(a, b):
+    row = [0] * len(a)
+    for i in range(0, len(a)):
+        row[i] = a[i] * b
+
+    return row
+
+def _by_columns(a, b):
+    row = [0] * b.columns
+    for i in range(0, b.columns):
+        for j in range(0, a.columns):
+            row[i] += a[j] * b.data[j][i]
+
+    return row
+
+##
+# Base class
+
+
 class Matrix:
     "stores a two-dimensional array"
+
     def __init__(self, data):
-        self.data = data
-        self.rows = len(data)
-        self.columns = len(data[0])
+        try:
+            self.data = data
+            self.rows = len(data)
+            self.columns = len(data[0])
+        except Exception:
+            print(ERRORS.get(1))
 
     def __add__(self, other):
         out = []
         other = other if isinstance(other, Matrix) else Matrix(other)
-
-        def _sum(a, b):
-            assert len(a) == len(b), ERRORS.get(2)
-            row = [0] * len(a)
-            for i in range(0, len(a)):
-                row[i] = a[i] + b[i]
-            return row
-
+        assert self.rows == other.rows and self.columns == other.columns, ERRORS.get(
+            2)
         for i in range(0, self.rows):
             out.append(_sum(self.data[i], other.data[i]))
-        
+
         return Matrix(out)
 
     def __mul__(self, other):
-        assert isinstance(other, int) or isinstance(other, float) or isinstance(other, Matrix), ERRORS.get(3)
-
-        def _by_scalar(a, b):
-            row = [0] * len(a)
-            for i in range(0, len(a)):
-                row[i] = a[i] * b
-            return row
-        
-        def _by_columns(a, b):
-            row = [0] * other.columns
-            for i in range(0, other.columns):
-                for j in range(0, self.columns):
-                    row[i] += a[j] * b.data[j][i]
-            return row
-
+        assert isinstance(other, int) or isinstance(
+            other, float) or isinstance(other, Matrix), ERRORS.get(3)
         out = []
         if isinstance(other, int) or isinstance(other, float):
             for i in range(0, len(self.data)):
@@ -60,6 +74,7 @@ class Matrix:
         return Matrix(out)
 
     def __rmul__(self, other):
+
         return self * other
 
     def __str__(self):
@@ -67,4 +82,5 @@ class Matrix:
         for i in range(0, self.rows):
             r += [str(s) + " " for s in self.data[i]]
             r.append("\n")
+
         return "".join(r)
