@@ -36,7 +36,6 @@ def _by_columns(a, b):
 ##
 # Base class
 
-
 class Matrix:
     "stores a two-dimensional array"
 
