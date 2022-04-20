@@ -1,2 +1,2 @@
 # mat-kit
-A tiny matrix library
+A tiny matrix library.
