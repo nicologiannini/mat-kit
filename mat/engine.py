@@ -32,8 +32,6 @@ class Matrix:
         return Matrix(out)
 
     def __mul__(self, other):
-        assert isinstance(other, int) or isinstance(
-            other, float) or isinstance(other, Matrix), ERRORS.get(3)
         out = []
         if isinstance(other, int) or isinstance(other, float):
             for i in range(0, len(self.data)):
