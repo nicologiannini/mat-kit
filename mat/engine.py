@@ -61,10 +61,10 @@ class Matrix:
             transposed.append(row)
         return Matrix(transposed)
 
-    def get_determinant(self):
+    def get_determinant(self): #TODO
         pass
 
-    def get_inverse(self):
+    def get_inverse(self): #TODO
         pass
 
 # Helpers
