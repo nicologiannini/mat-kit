@@ -62,6 +62,9 @@ class Matrix:
     def __rmul__(self, other):
         return self * other
 
-    def view(self):
+    def __str__(self):
+        r = []
         for i in range(0, self.rows):
-            print(*self.data[i])
+            r += [str(s) + " " for s in self.data[i]]
+            r.append("\n")
+        return "".join(r)
