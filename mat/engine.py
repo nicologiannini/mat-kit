@@ -29,7 +29,6 @@ class Matrix:
             2)
         for i in range(0, self.rows):
             out.append(_sum(self.data[i], other.data[i]))
-
         return Matrix(out)
 
     def __mul__(self, other):
@@ -44,11 +43,9 @@ class Matrix:
             assert self.columns == other.rows, ERRORS.get(3)
             for i in range(0, len(self.data)):
                 out.append(_by_columns(self.data[i], other))
-
         return Matrix(out)
 
     def __rmul__(self, other):
-
         return self * other
 
     def __str__(self):
@@ -56,7 +53,6 @@ class Matrix:
         for i in range(0, self.rows):
             r += [str(s) + " " for s in self.data[i]]
             r.append("\n")
-
         return "".join(r)
 
 #
@@ -66,14 +62,12 @@ def _sum(a, b):
     row = [0] * len(a)
     for i in range(0, len(a)):
         row[i] = a[i] + b[i]
-
     return row
 
 def _by_scalar(a, b):
     row = [0] * len(a)
     for i in range(0, len(a)):
         row[i] = a[i] * b
-
     return row
 
 def _by_columns(a, b: Matrix):
@@ -81,5 +75,4 @@ def _by_columns(a, b: Matrix):
     for i in range(0, b.columns):
         for j in range(0, len(a)):
             row[i] += a[j] * b.data[j][i]
-
     return row
