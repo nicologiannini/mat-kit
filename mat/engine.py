@@ -76,13 +76,13 @@ class Matrix:
     def get_determinant(self):
         assert self.is_squared(), ERRORS.get(0)
         ut_mat = Matrix(self.rows[:])
-        ut_mat.to_upper_triagular()
+        ut_mat.to_upper_triangular()
         det = 1
         for i in range(0, self.n_rows):
             det *= ut_mat.rows[i][i]
         return det
 
-    def to_upper_triagular(self):
+    def to_upper_triangular(self):
         assert self.is_squared(), ERRORS.get(0)
         for i in range(0, self.n_rows):
             for j in range(0, i):
