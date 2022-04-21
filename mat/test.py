@@ -8,12 +8,10 @@ b = Matrix(b)
 c = a * b
 print(c)
 
-c = [[1, 2, 3], [4, 5, 4], [3, 2 , 1]]
+c = [[1, 2, 3], [4, 5, 4], [3, 2, 1]]
 c = Matrix(c)
 print(c)
 print(c.get_determinant())
 print(c)
-c.to_upper_triagular()
-print(c)
-c.transpose()
-print(c)
+d = c.get_inverse()
+print(d)

@@ -83,6 +83,7 @@ class Matrix:
         return det
 
     def to_upper_triagular(self):
+        assert self.is_squared(), ERRORS.get(0)
         for i in range(0, self.n_rows):
             for j in range(0, i):
                 if self.rows[i][j] != 0:
@@ -92,4 +93,14 @@ class Matrix:
         self.columns = _to_column(self.rows)
 
     def get_inverse(self):
-        pass
+        complement_mat = [[[] for row in self.rows] for col in self.columns]
+        det = self.get_determinant()
+        for i in range(0, self.n_rows):
+            for j in range(0, self.n_columns):
+                sub_mat = Matrix([[self.rows[z][k] for k in range(
+                    0, self.n_columns) if k != j] for z in range(0, self.n_rows) if z != i])
+                complement_mat[i][j] = (-1 if (i + j) %
+                                        2 != 0 else 1) * sub_mat.get_determinant()
+        complement_mat = Matrix(complement_mat)
+        complement_mat.transpose()
+        return complement_mat * Fraction(1, det)
