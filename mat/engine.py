@@ -22,8 +22,8 @@ def _sum(row_a, row_b):
 def _sub(row_a, row_b):
     return [row_a[i] - row_b[i] for i in range(0, len(row_a))]
 
-def _by_scalar(row, s):
-    return [n * s for n in row]
+def _by_scalar(row, value):
+    return [n * value for n in row]
 
 def _by_columns(row, columns):
     return [sum([row[i] * col[i] for i in range(0, len(row))]) for col in columns]
@@ -70,25 +70,26 @@ class Matrix:
         return self.n_rows == self.n_columns
 
     def transpose(self):
-        return Matrix(self.columns)
+        self.columns, self.rows = self.rows, self.columns
+        self.n_columns, self.n_rows = self.n_rows, self.n_columns
 
     def get_determinant(self):
         assert self.is_squared(), ERRORS.get(0)
-        ut_mat = self.to_upper_triagular()
+        ut_mat = Matrix(self.rows[:])
+        ut_mat.to_upper_triagular()
         det = 1
         for i in range(0, self.n_rows):
             det *= ut_mat.rows[i][i]
         return det
 
     def to_upper_triagular(self):
-        mat_copy = Matrix(self.rows)
         for i in range(0, self.n_rows):
             for j in range(0, i):
-                if mat_copy.rows[i][j] != 0:
-                    t = Fraction(mat_copy.rows[i][j], mat_copy.rows[j][j])
-                    temp_row = _by_scalar(mat_copy.rows[j], t)
-                    mat_copy.rows[i] = _sub(mat_copy.rows[i], temp_row)
-        return mat_copy
+                if self.rows[i][j] != 0:
+                    t_param = Fraction(self.rows[i][j], self.rows[j][j])
+                    row_param = _by_scalar(self.rows[j], t_param)
+                    self.rows[i] = _sub(self.rows[i], row_param)
+        self.columns = _to_column(self.rows)
 
     def get_inverse(self):
         pass
