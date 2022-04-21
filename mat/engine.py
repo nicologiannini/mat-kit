@@ -22,24 +22,21 @@ class Matrix:
             print(ERRORS.get(1))
 
     def __add__(self, other):
-        out = []
         other = other if isinstance(other, Matrix) else Matrix(other)
         assert self.rows == other.rows and self.columns == other.columns, ERRORS.get(
             2)
-        for i in range(0, self.rows):
-            out.append(_sum(self.data[i], other.data[i]))
-        return Matrix(out)
+        return Matrix([_sum(self.data[i], other.data[i]) for i in range(0, self.rows)])
 
     def __mul__(self, other):
         out = []
         if isinstance(other, int) or isinstance(other, float):
-            for i in range(0, len(self.data)):
-                out.append(_by_scalar(self.data[i], other))
+            out = [_by_scalar(self.data[i], other)
+                   for i in range(0, self.rows)]
         else:
             other = other if isinstance(other, Matrix) else Matrix(other)
             assert self.columns == other.rows, ERRORS.get(3)
-            for i in range(0, len(self.data)):
-                out.append(_by_columns(self.data[i], other))
+            out = [_by_columns(self.data[i], other)
+                   for i in range(0, self.rows)]
         return Matrix(out)
 
     def __rmul__(self, other):
@@ -52,19 +49,22 @@ class Matrix:
             r.append("\n")
         return "".join(r)
 
-    def get_transpose(self):
-        transposed = []
+    def is_squared(self):
+        return self.rows == self.columns
+
+    def transpose(self):
+        t_mat = []
         for i in range(0, self.columns):
             row = []
             for j in range(0, self.rows):
                 row.append(self.data[j][i])
-            transposed.append(row)
-        return Matrix(transposed)
+            t_mat.append(row)
+        return Matrix(t_mat)
 
-    def get_determinant(self): #TODO
+    def get_determinant(self):  # TODO
         pass
 
-    def get_inverse(self): #TODO
+    def get_inverse(self):  # TODO
         pass
 
 # Helpers
