@@ -1,5 +1,5 @@
 # mat-kit
-The goal was to build a tiny library to work with matrices while staying around 100 lines of code.<br>
+The goal was to build a small library to work with matrices while staying around 100 lines of code.<br>
 Implementing however some core matrix operations such as:
 * addition/subtraction
 * multiplication by scalar
