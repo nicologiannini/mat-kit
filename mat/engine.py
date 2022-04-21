@@ -8,6 +8,21 @@ ERRORS = {
     3: "multiplication not applicable"
 }
 
+##
+# Helper
+
+def _to_column(data):
+    return [[data[j][i] for j in range(0, len(data))] for i in range(0, len(data[0]))]
+
+def _sum(row_a, row_b):
+    return [row_a[i] + row_b[i] for i in range(0, len(row_a))]
+
+def _by_scalar(row, s):
+    return [n * s for n in row]
+
+def _by_columns(row, columns):
+    return [sum([row[i] * col[i] for i in range(0, len(row))]) for col in columns]
+
 # Base class
 
 class Matrix:
@@ -15,28 +30,29 @@ class Matrix:
 
     def __init__(self, data):
         try:
-            self.data = data
-            self.rows = len(data)
-            self.columns = len(data[0])
+            self.rows = data
+            self.columns = _to_column(self.rows)
+            self.n_rows = len(self.rows)
+            self.n_columns = len(self.columns)
         except Exception:
             print(ERRORS.get(1))
 
     def __add__(self, other):
         other = other if isinstance(other, Matrix) else Matrix(other)
-        assert self.rows == other.rows and self.columns == other.columns, ERRORS.get(
+        assert self.n_rows == other.n_rows and self.n_columns == other.n_columns, ERRORS.get(
             2)
-        return Matrix([_sum(self.data[i], other.data[i]) for i in range(0, self.rows)])
+        return Matrix([_sum(self.rows[i], other.rows[i]) for i in range(0, self.n_rows)])
 
     def __mul__(self, other):
         out = []
         if isinstance(other, int) or isinstance(other, float):
-            out = [_by_scalar(self.data[i], other)
-                   for i in range(0, self.rows)]
+            out = [_by_scalar(row, other)
+                   for row in self.rows]
         else:
             other = other if isinstance(other, Matrix) else Matrix(other)
-            assert self.columns == other.rows, ERRORS.get(3)
-            out = [_by_columns(self.data[i], other)
-                   for i in range(0, self.rows)]
+            assert self.n_columns == other.n_rows, ERRORS.get(3)
+            out = [_by_columns(row, other.columns)
+                   for row in self.rows]
         return Matrix(out)
 
     def __rmul__(self, other):
@@ -44,46 +60,19 @@ class Matrix:
 
     def __str__(self):
         r = []
-        for i in range(0, self.rows):
-            r += [str(s) + " " for s in self.data[i]]
+        for i in range(0, self.n_rows):
+            r += [str(s) + " " for s in self.rows[i]]
             r.append("\n")
         return "".join(r)
 
     def is_squared(self):
-        return self.rows == self.columns
+        return self.n_rows == self.n_columns
 
     def transpose(self):
-        t_mat = []
-        for i in range(0, self.columns):
-            row = []
-            for j in range(0, self.rows):
-                row.append(self.data[j][i])
-            t_mat.append(row)
-        return Matrix(t_mat)
+        return Matrix(self.columns)
 
     def get_determinant(self):  # TODO
         pass
 
     def get_inverse(self):  # TODO
         pass
-
-# Helpers
-
-def _sum(a, b):
-    row = [0] * len(a)
-    for i in range(0, len(a)):
-        row[i] = a[i] + b[i]
-    return row
-
-def _by_scalar(a, b):
-    row = [0] * len(a)
-    for i in range(0, len(a)):
-        row[i] = a[i] * b
-    return row
-
-def _by_columns(a, b: Matrix):
-    row = [0] * b.columns
-    for i in range(0, b.columns):
-        for j in range(0, len(a)):
-            row[i] += a[j] * b.data[j][i]
-    return row
