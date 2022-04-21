@@ -46,24 +46,22 @@ class Matrix:
     def __mul__(self, other):
         out = []
         if isinstance(other, int) or isinstance(other, float):
-            out = [_by_scalar(row, other)
-                   for row in self.rows]
+            out = [_by_scalar(row, other) for row in self.rows]
         else:
             other = other if isinstance(other, Matrix) else Matrix(other)
             assert self.n_columns == other.n_rows, ERRORS.get(3)
-            out = [_by_columns(row, other.columns)
-                   for row in self.rows]
+            out = [_by_columns(row, other.columns) for row in self.rows]
         return Matrix(out)
 
     def __rmul__(self, other):
         return self * other
 
     def __str__(self):
-        r = []
-        for i in range(0, self.n_rows):
-            r += [str(s) + " " for s in self.rows[i]]
-            r.append("\n")
-        return "".join(r)
+        s = []
+        for row in self.rows:
+            s += [str(n) + " " for n in row]
+            s.append("\n")
+        return "".join(s)
 
     def is_squared(self):
         return self.n_rows == self.n_columns
