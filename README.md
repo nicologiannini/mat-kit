@@ -20,21 +20,15 @@ Below is a slightly contrived example showing a number of possible supported ope
 ```python
 from mat-kit.engine import Matrix
 
-a = [[3, -1, 2], 
-    [2, 0, 1]]
-
-b = [[2, -3],
-    [1, 2],
-    [0, 4]]
+a = [[3, -1, 2], [2, 0, 1]]
+b = [[2, -3], [1, 2], [0, 4]]
 
 c = Matrix(a)
 d = Matrix(b)
 e = c * d
 print(e)
 
-f = [[1, 2, 3],
-    [4, 5, 4],
-    [3, 2, 1]]
+f = [[1, 2, 3], [4, 5, 4], [3, 2, 1]]
 
 g = Matrix(f)
 det = g.get_determinant()
