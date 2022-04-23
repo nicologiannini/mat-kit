@@ -18,7 +18,7 @@ pip install mat-kit
 Below is a slightly contrived example showing a number of possible supported operations:
 
 ```python
-from mat-kit.engine import Matrix
+from minimat.engine import Matrix
 
 a = [[3, -1, 2], [2, 0, 1]]
 b = [[2, -3], [1, 2], [0, 4]]
