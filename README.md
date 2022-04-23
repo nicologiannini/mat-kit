@@ -1,6 +1,6 @@
 # minimat
 The goal was to build a small library to work with matrices while staying under 100 lines of code.<br>
-Implementing however some core matrix operations such as:
+Implements a few core matrix operations such as:
 * addition/subtraction
 * multiplication by scalar
 * multiplication row by column 
