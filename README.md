@@ -10,7 +10,7 @@ Implementing however some core matrix operations such as:
 ### Installation
 
 ```bash
-pip install mat-kit
+pip install minimat
 ```
 
 ### Example usage
