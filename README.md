@@ -1,4 +1,4 @@
-# mat-kit
+# minimat
 The goal was to build a small library to work with matrices while staying under 100 lines of code.<br>
 Implementing however some core matrix operations such as:
 * addition/subtraction
