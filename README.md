@@ -23,6 +23,7 @@ c = Matrix(a)
 d = Matrix(b)
 e = c * d
 print(e)
+print(c * 2)
 
 f = [[1, 2, 3], [4, 5, 4], [3, 2, 1]]
 
