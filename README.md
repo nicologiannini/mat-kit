@@ -9,13 +9,7 @@ Implements a few core matrix operations such as:
 - determinant
 - inverse matrix
 
-### Installation
-
-```bash
-pip install minimat
-```
-
-### Example usage
+### Example
 
 Below is a slightly contrived example showing a number of possible supported operations:
 
@@ -37,6 +31,6 @@ det = g.get_determinant()
 h = g.get_inverse()
 ```
 
-#### Test
+### Test
 
 `pytest test.py`
